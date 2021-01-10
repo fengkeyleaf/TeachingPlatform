@@ -7,11 +7,12 @@
 
 #define EPSILON 0.000001
 
+// class definition
 typedef struct Double {
     double num;
 } Double;
 
-// constructor
+// constructors
 Double* newDoulbe( double );
 
 // basic algebra
@@ -24,7 +25,6 @@ Double* divisionDouble( Double*, Double* );
 int compareToDouble(Double* , Double*);
 
 // toString
-//void printInteger( Integer** Integers, size_t len );
 void toStringDouble( Double* aDouble );
 
 #endif // DOUBLE_H_INCLUDED

@@ -1,7 +1,13 @@
 #include "ArrayListGeneric.h"
 
-// constructor operations
-ArrayListGeneric* createArrayListGeneric( void* const * data, size_t len ) {
+// constructor
+
+/*
+ * Constructs a list containing the elements of the specified 2-D arrays with length of len
+ *
+ */
+
+ArrayListGeneric* newArrayListGeneric( void* const * data, size_t len ) {
     ArrayListGeneric* aArrayListGeneric = (ArrayListGeneric*) malloc( sizeof(ArrayListGeneric) );
     aArrayListGeneric->capacity = len;
     aArrayListGeneric->index = len;
@@ -9,11 +15,22 @@ ArrayListGeneric* createArrayListGeneric( void* const * data, size_t len ) {
     return aArrayListGeneric;
 }
 
-ArrayListGeneric* createArrayListGenericDefaultCapacity() {
-    return createArrayListGenericWithCapacity( 8 );
+/*
+ * ArrayList()
+ * Constructs an empty list with an initial capacity of eight.
+ */
+
+ArrayListGeneric* newArrayListGenericDefaultCapacity() {
+    return newArrayListGenericWithCapacity( 8 );
 }
 
-ArrayListGeneric* createArrayListGenericWithCapacity( size_t capacity ) {
+/*
+ * ArrayList​(int initialCapacity)
+ * Constructs an empty list with the specified initial capacity.
+ *
+ */
+
+ArrayListGeneric* newArrayListGenericWithCapacity( size_t capacity ) {
     ArrayListGeneric* aArrayListGeneric = (ArrayListGeneric*) malloc( sizeof(ArrayListGeneric) );
     aArrayListGeneric->capacity = capacity;
     aArrayListGeneric->index = 0;
@@ -22,6 +39,13 @@ ArrayListGeneric* createArrayListGenericWithCapacity( size_t capacity ) {
 }
 
 // add operations
+
+/*
+ * add​(E e)
+ * Appends the specified element to the end of this list.
+ *
+ */
+
 void appendArrayListGeneric ( ArrayListGeneric* aArrayListGeneric, void* element ) {
     aArrayListGeneric->data[ aArrayListGeneric->index++ ] = element;
 
@@ -31,6 +55,12 @@ void appendArrayListGeneric ( ArrayListGeneric* aArrayListGeneric, void* element
         free( oldArray );
     }
 }
+
+/*
+ * add​(int index, E element)
+ * Inserts the specified element at the specified position in this list.
+ *
+ */
 
 void insertArrayListGeneric( ArrayListGeneric* aArrayListGeneric, void* element , int index ) {
     if ( index < 0 || index > aArrayListGeneric->index ) {
@@ -49,19 +79,25 @@ void insertArrayListGeneric( ArrayListGeneric* aArrayListGeneric, void* element 
         free( oldArray );
     }
 
-//    printf("test\n");
     for (int i = aArrayListGeneric->index - 1; i > index; i--)
         aArrayListGeneric->data[i] = aArrayListGeneric->data[i - 1];
     aArrayListGeneric->data[index] = element;
 }
 
+/*
+ * extend this list with double size of the original
+ *
+ */
 
 void extendArrayListGeneric( ArrayListGeneric* aArrayListGeneric, void* const * data ) {
     aArrayListGeneric->data = (void**) malloc( aArrayListGeneric->capacity * 2 * sizeof(void*) );
     copyArrayListGeneric( aArrayListGeneric->data, data, 0, aArrayListGeneric->capacity );
-//    aArrayListInt->index = aArrayListInt->len;
     aArrayListGeneric->capacity = aArrayListGeneric->capacity * 2;
 }
+
+/*
+ * copy elements from list src to list des from position start to ending (exclusive)
+ */
 
 void copyArrayListGeneric( void** des, void* const * src, size_t start, size_t ending ) {
     for (int i = start; i < ending; i++)
@@ -69,6 +105,11 @@ void copyArrayListGeneric( void** des, void* const * src, size_t start, size_t e
 }
 
 // delete operations
+
+/*
+ * Removes the element at the last position in this list, if there is.
+ */
+
 void* deleteLastArrayListGeneric( ArrayListGeneric* aArrayListGeneric ) {
     if ( isEmptyArrayListGeneric( aArrayListGeneric ) ) {
         fprintf(stderr, "\nError: ArrayListInt is empty\n");
@@ -79,6 +120,12 @@ void* deleteLastArrayListGeneric( ArrayListGeneric* aArrayListGeneric ) {
     reorangeArrayListGeneric( aArrayListGeneric );
     return temp;
 }
+
+ /*
+ * remove​(int index)
+ * Removes the element at the specified position in this list.
+ *
+ */
 
 void* deleteIndexArrayListGeneric( ArrayListGeneric* aArrayListGeneric, int index ) {
     if ( isEmptyArrayListGeneric(aArrayListGeneric) ) {
@@ -103,6 +150,13 @@ void* deleteIndexArrayListGeneric( ArrayListGeneric* aArrayListGeneric, int inde
 }
 
 // obtain operations
+
+/*
+ * get​(int index)
+ * Returns the element at the specified position in this list.
+ *
+ */
+
 void* getArrayListGeneric ( ArrayListGeneric* aArrayListGeneric, int index ) {
     if ( isEmptyArrayListGeneric(aArrayListGeneric) ) {
         fprintf(stderr, "\nError: ArrayListInt is empty\n");
@@ -117,13 +171,30 @@ void* getArrayListGeneric ( ArrayListGeneric* aArrayListGeneric, int index ) {
     return aArrayListGeneric->data[index];
 }
 
+/*
+ * isEmpty()
+ * Returns true if this list contains no elements.
+ *
+ */
+
 int isEmptyArrayListGeneric( ArrayListGeneric* aArrayListGeneric ) {
     return aArrayListGeneric->index == 0;
 }
 
+/*
+ * check if a given index is valid or not
+ *
+ */
+
 int checkIfIndexValidGeneric( ArrayListGeneric* aArrayListGeneric, int index ) {
     return index < 0 || index >= aArrayListGeneric->index;
 }
+
+/*
+ * rearrange a list if two times of its length is smaller or equal to the half its capacity,
+ * and set its capacity to capacity / 2
+ *
+ */
 
 void reorangeArrayListGeneric( ArrayListGeneric* aArrayListGeneric ) {
     if ( aArrayListGeneric->index < 5 ) return;
@@ -135,6 +206,11 @@ void reorangeArrayListGeneric( ArrayListGeneric* aArrayListGeneric ) {
     }
 }
 
+/*
+ * do the rearranging procedures
+ *
+ */
+
 void shrinkArrayListGeneric( ArrayListGeneric* aArrayListGeneric, void* const * data ) {
     aArrayListGeneric->data = (void**) malloc( ( aArrayListGeneric->capacity / 2 ) * sizeof(void*) );
     copyArrayListGeneric( aArrayListGeneric->data, data, 0, aArrayListGeneric->index );
@@ -142,10 +218,15 @@ void shrinkArrayListGeneric( ArrayListGeneric* aArrayListGeneric, void* const * 
 }
 
 // find operations
+
+/*
+ * contains​(Object o)
+ * Returns index greater than -1 if this list contains the specified element.
+ *
+ */
+
 int linearSearchGeneric( ArrayListGeneric* aArrayListGeneric, void* target, int (*equalsGeneric)(void*, void*) ) {
     for ( int i = 0; i < aArrayListGeneric->index; i++ ) {
-//        if ( ( (Integer*) aArrayListGeneric->data[i] )->num == target->num )
-    printf("test");
         if ( equalsGeneric( aArrayListGeneric->data[i], target ) )
             return i;
     }
@@ -154,14 +235,19 @@ int linearSearchGeneric( ArrayListGeneric* aArrayListGeneric, void* target, int 
 }
 
 // sort operations
-// selection sort
+
+/*
+ * selection sort
+ * @param           ascending           true, ordering in ascending ordering, otherwise, descending order
+ * @param           compareToGeneric    passed-in comparable<T> function of a given class (callback function)
+ */
+
 void selectionSortGeneric( ArrayListGeneric* aArrayListGeneric, int ascending, int (*compareToGeneric)(void*, void*) ) {
     for ( int i = aArrayListGeneric->index - 1; i > 0; i--) {
         void* maxNum = aArrayListGeneric->data[i];
         int indexMax = i;
 
         for (int j = i; j >= 0; j--) {
-//            if ( compareToInteger( (Integer*) aArrayListGeneric->data[j], maxNum ) > 0 ) {
             if ( compareToGeneric( aArrayListGeneric->data[j], maxNum ) > 0 ) {
                 maxNum = aArrayListGeneric->data[j];
                 indexMax = j;
@@ -174,11 +260,20 @@ void selectionSortGeneric( ArrayListGeneric* aArrayListGeneric, int ascending, i
     if ( ascending == FALSE ) reverseGerneric( aArrayListGeneric );
 }
 
+/*
+ * swap two elements at index i and j
+ *
+ */
+
 void swapTwoGerneric( ArrayListGeneric* aArrayListGeneric, int i, int j ) {
     void* temp = aArrayListGeneric->data[i];
     aArrayListGeneric->data[i] = aArrayListGeneric->data[j];
     aArrayListGeneric->data[j] = temp;
 }
+
+/*
+ * swap two elements at index i and j
+ */
 
 void reverseGerneric( ArrayListGeneric* aArrayListGeneric ) {
     int left = 0, right = aArrayListGeneric->index - 1;
@@ -188,11 +283,24 @@ void reverseGerneric( ArrayListGeneric* aArrayListGeneric ) {
 }
 
 // quickSort
+
+/*
+ * Quick sort
+ * @param           ascending           true, ordering in ascending ordering, otherwise, descending order
+ * @param           compareToGeneric    passed-in comparable<T> function of a given class (callback function)
+ *
+ */
+
 void quickSortGeneric( ArrayListGeneric* aArrayListGeneric, int ascending, int (*compareToGeneric)(void*, void*) ) {
-    myQuickSortGeneric( aArrayListGeneric, 0, aArrayListGeneric->index - 1, compareToGeneric );
+     myQuickSortGeneric( aArrayListGeneric, 0, aArrayListGeneric->index - 1, compareToGeneric );
 
     if ( ascending == FALSE ) reverseGerneric( aArrayListGeneric );
 }
+
+/*
+ * recursion procedures
+ *
+ */
 
 void myQuickSortGeneric(  ArrayListGeneric* aArrayListGeneric, int start, int ending, int (*compareToGeneric)(void*, void*) ) {
     if ( ending <= start ) return;
@@ -202,30 +310,39 @@ void myQuickSortGeneric(  ArrayListGeneric* aArrayListGeneric, int start, int en
     myQuickSortGeneric( aArrayListGeneric, pivotIndex + 1, ending, compareToGeneric );
 }
 
+/*
+ * partition procedures
+ *
+ */
+
 int partitionGeneric( ArrayListGeneric* aArrayListGeneric, int start, int ending, int (*compareToGeneric)(void*, void*) ) {
     time_t t;
-    srand( (unsigned) time( &t ) );
+    srand( (unsigned) time( &t ) ); // set random seed
     int pivotIndex = start + ( rand() % ( ending - start + 1 ) );
     void* pivot = aArrayListGeneric->data[ pivotIndex ];
-    swapTwoGerneric( aArrayListGeneric, start, pivotIndex );
-//     Integer* pivot = (Integer*) aArrayListGeneric->data[ start ];
-//    Integer* pivot = (Integer*) aArrayListGeneric->data[ ending ];
-//    swapTwoGerneric( aArrayListGeneric, start, ending );
+    swapTwoGerneric( aArrayListGeneric, start, pivotIndex ); // put the pivot at the front of the list
 
+    // do the partition procedures
+    // stands for elements smaller than pivot at left and others greater than pivot at right
     int i = start + 1;
-    for (int j = start + 1; j <= ending; j++) {
-        // function pointer
-        // https://www.runoob.com/cprogramming/c-fun-pointer-callback.html
+    for ( int j = start + 1; j <= ending; j++ ) {
         if ( compareToGeneric( pivot, aArrayListGeneric->data[j] ) > 0 ) {
             swapTwoGerneric(aArrayListGeneric, i++, j);
         }
     }
 
+    // make the pivot in order
     swapTwoGerneric(aArrayListGeneric, start, i - 1);
     return i - 1;
 }
 
 // toString
+
+/*
+ * toString() in Java
+ * Returns a string representation of the object.
+ */
+
 void toStringGeneric( ArrayListGeneric* aArrayListGeneric, void (*toStringInstance)(void*) ) {
     printf("[ ");
     for ( int i = 0; i < aArrayListGeneric->index; i++ )
@@ -233,7 +350,13 @@ void toStringGeneric( ArrayListGeneric* aArrayListGeneric, void (*toStringInstan
     printf("] | size: %d\n", aArrayListGeneric->index );
 }
 
-// test
+// free
+void freeArrayListGeneric( ArrayListGeneric* aArrayListGeneric ) {
+    free( aArrayListGeneric->data );
+    free( aArrayListGeneric );
+}
+
+// test function for ArrayGeneric Class
 void testArrayGenericWithInteger() {
     // test createArrayListGeneric() and appendArrayListGeneric
     printf("\n test createArrayListGeneric() and appendArrayListGeneric()---------->\n");
@@ -248,7 +371,7 @@ void testArrayGenericWithInteger() {
     nums[1] = &num2;
     nums[2] = &num3;
 
-    ArrayListGeneric* aArrayListGeneric = createArrayListGeneric( (void**) nums, 3);
+    ArrayListGeneric* aArrayListGeneric = newArrayListGeneric( (void**) nums, 3);
     printInteger( (Integer**)aArrayListGeneric->data, aArrayListGeneric->index);
     Integer num4;
     num4.num = 4;
@@ -318,11 +441,13 @@ void testArrayGenericWithInteger() {
 
     // test constructors
     printf("\n test constructors---------->\n");
-    aArrayListGeneric = createArrayListGenericDefaultCapacity();
+    aArrayListGeneric = newArrayListGenericDefaultCapacity();
     printInteger( (Integer**)aArrayListGeneric->data, aArrayListGeneric->index);
     appendArrayListGeneric( aArrayListGeneric, &num1 );
     insertArrayListGeneric( aArrayListGeneric, &num5, 0 );
     printInteger( (Integer**)aArrayListGeneric->data, aArrayListGeneric->index);
     deleteLastArrayListGeneric( aArrayListGeneric );
     printInteger( (Integer**)aArrayListGeneric->data, aArrayListGeneric->index);
+
+    freeArrayListGeneric( aArrayListGeneric );
 }

@@ -1,5 +1,10 @@
 #include "Student.h"
 
+/*
+ * constructor to create an instance of a Student with basic information
+ *
+ */
+
 Student* newStudentDefalut( size_t ID, char* name, char* major, char* className ) {
     Student* aStudent = ( Student* ) malloc( sizeof (Student) );
     aStudent->ID = ID;
@@ -10,15 +15,14 @@ Student* newStudentDefalut( size_t ID, char* name, char* major, char* className 
     return aStudent;
 }
 
+/*
+ * constructor to create an instance of a Student with basic information plus courses, scores and credits
+ *
+ */
+
 Student* newStudent( size_t ID, char* name, char* major, char* className,
                     ArrayListGeneric* courses, ArrayListGeneric* scores, ArrayListGeneric* credits) {
-    Student* aStudent = ( Student* ) malloc( sizeof (Student) );
-    aStudent->ID = ID;
-    aStudent->name = name;
-    aStudent->major = major;
-    aStudent->className = className;
-    aStudent->weightedGPA = -1.0;
-
+    Student* aStudent = newStudentDefalut( ID, name, major, className );
     aStudent->myGrade.courses = courses;
     aStudent->myGrade.scores = scores;
     aStudent->myGrade.credits = credits;
@@ -26,6 +30,11 @@ Student* newStudent( size_t ID, char* name, char* major, char* className,
     aStudent->weightedGPA = calculateGrade( &aStudent->myGrade );
     return aStudent;
 }
+
+
+/*
+ * calculate grades for a student
+ */
 
 double calculateGrade( Grade* aGrade ) {
     double totalScores = 0.0;
@@ -38,7 +47,11 @@ double calculateGrade( Grade* aGrade ) {
     return totalScores / totalCreadits;
 }
 
-// toString
+/*
+ * toString() in Java
+ * Returns a string representation of the object.
+ */
+
 void toStringStudent( Student* aStudent ) {
     printf("ID: %lu | Name: %s | Major: %s | className: %s | weightedGPA: %f\n",
            aStudent->ID, aStudent->name, aStudent->major, aStudent->className, aStudent->weightedGPA);
@@ -51,17 +64,31 @@ void toStringStudent( Student* aStudent ) {
 
 }
 
-// comparable
+/*
+ * comparable, equivalent to comparable<T> in Java
+ * This interface imposes a total ordering on the objects of each class that implements it.
+ * This ordering is referred to as the class's natural ordering,
+ * and the class's compareTo method is referred to as its natural comparison method.
+ *
+ */
+
 int compareToStudent(Student* aStudent1 , Student* aStudent2) {
-    if (  fabs( aStudent1->weightedGPA - aStudent2->weightedGPA ) <= EPSILON ) // have some problem
+    // determining if two doubles are equal is special
+    if (  fabs( aStudent1->weightedGPA - aStudent2->weightedGPA ) <= EPSILON )
         return 0;
+    // Student1 < aStduent2
     else if ( aStudent1->weightedGPA - aStudent2->weightedGPA < 0 )
         return -1;
 
+    // Student1 > aStduent2
     return 1;
 }
 
-// equals
+/*
+ * equals, equivalent to equals​(Object obj)	in Java
+ * Indicates whether some other object is "equal to" this one.
+ */
+
 int equalsStudent( Student* aStudent1, Student* aStudent2 ) {
     return aStudent1->ID == aStudent2->ID;
 }

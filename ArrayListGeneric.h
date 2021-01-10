@@ -9,6 +9,7 @@
 #define TRUE 1
 #define FALSE 0
 
+// class Definition
 typedef struct ArrayListGeneric {
     void** data;
     size_t index;
@@ -16,48 +17,51 @@ typedef struct ArrayListGeneric {
 } ArrayListGeneric;
 
 // constructor operations
-ArrayListGeneric* createArrayListGeneric( void* const * data, size_t len );
-ArrayListGeneric* createArrayListGenericDefaultCapacity();
-ArrayListGeneric* createArrayListGenericWithCapacity( size_t capacity );
+ArrayListGeneric* newArrayListGeneric( void* const *, size_t );
+ArrayListGeneric* newArrayListGenericDefaultCapacity();
+ArrayListGeneric* newArrayListGenericWithCapacity( size_t );
 
 // add operations
-void appendArrayListGeneric ( ArrayListGeneric* aArrayListGeneric, void* element );
-void insertArrayListGeneric( ArrayListGeneric*, void* element , int );
+void appendArrayListGeneric ( ArrayListGeneric* , void* );
+void insertArrayListGeneric( ArrayListGeneric*, void* , int );
 
-void extendArrayListGeneric( ArrayListGeneric* aArrayListGeneric, void* const * data );
-void copyArrayListGeneric( void** des, void* const * src, size_t start, size_t ending );
+void extendArrayListGeneric( ArrayListGeneric* , void* const * );
+void copyArrayListGeneric( void**, void* const *, size_t, size_t );
 
 // delete operations
-void* deleteLastArrayListGeneric( ArrayListGeneric* aArrayListGeneric );
-void* deleteIndexArrayListGeneric( ArrayListGeneric* aArrayListGeneric, int index );
+void* deleteLastArrayListGeneric( ArrayListGeneric* );
+void* deleteIndexArrayListGeneric( ArrayListGeneric*, int );
 
 // obtain operations
-void* getArrayListGeneric ( ArrayListGeneric* aArrayListGeneric, int index );
+void* getArrayListGeneric ( ArrayListGeneric*, int );
 
-int isEmptyArrayListGeneric( ArrayListGeneric* aArrayListGeneric );
-int checkIfIndexValidGeneric( ArrayListGeneric* aArrayListGeneric, int index );
-void reorangeArrayListGeneric( ArrayListGeneric* aArrayListGeneric );
-void shrinkArrayListGeneric( ArrayListGeneric* aArrayListGeneric, void* const * data );
+int isEmptyArrayListGeneric( ArrayListGeneric* );
+int checkIfIndexValidGeneric( ArrayListGeneric*, int index );
+void reorangeArrayListGeneric( ArrayListGeneric* );
+void shrinkArrayListGeneric( ArrayListGeneric*, void* const * );
 
 // find operations
-int linearSearchGeneric( ArrayListGeneric* aArrayListGeneric, void* target, int (*compareToGeneric)(void*, void*) );
+int linearSearchGeneric( ArrayListGeneric*, void*, int (*compareToGeneric)(void*, void*) );
 
 // sort operations
 // selection sort
-void selectionSortGeneric( ArrayListGeneric* aArrayListGeneric, int ascending, int (*compareToGeneric)(void*, void*) );
-void swapTwoGerneric( ArrayListGeneric* aArrayListGeneric, int i, int j );
-void reverseGerneric( ArrayListGeneric* aArrayListGeneric );
+void selectionSortGeneric( ArrayListGeneric*, int, int (*compareToGeneric)(void*, void*) );
+void swapTwoGerneric( ArrayListGeneric*, int i, int j );
+void reverseGerneric( ArrayListGeneric* );
 
 // quickSort
-void quickSortGeneric( ArrayListGeneric* aArrayListGeneric, int ascending, int (*compareToGeneric)(void*, void*) );
-void myQuickSortGeneric(  ArrayListGeneric* aArrayListGeneric, int start, int ending, int (*compareToGeneric)(void*, void*) );
-int partitionGeneric( ArrayListGeneric* aArrayListGeneric, int start, int ending, int (*compareToGeneric)(void*, void*) );
+void quickSortGeneric( ArrayListGeneric*, int, int (*compareToGeneric)(void*, void*) );
+void myQuickSortGeneric(  ArrayListGeneric*, int, int, int (*compareToGeneric)(void*, void*) );
+int partitionGeneric( ArrayListGeneric*, int, int, int (*compareToGeneric)(void*, void*) );
 
 // generic function pointer to compareTo
 typedef int (*compareToPtr)(void*, void*);
 
 // toString
-void toStringGeneric( ArrayListGeneric* aArrayListGeneric, void (*toStringInstance)(void*) );
+void toStringGeneric( ArrayListGeneric*, void (*toStringInstance)(void*) );
+
+// free
+void freeArrayListGeneric(ArrayListGeneric* );
 
 // test
 void testArrayGenericWithInteger();
