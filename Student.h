@@ -10,14 +10,14 @@
 
 #define EPSILON 0.000001
 
-// Structure Definition Grade
+// class Definition Grade
 typedef struct Grade {
     ArrayListGeneric* courses; // char**
     ArrayListGeneric* scores;  // double**
     ArrayListGeneric* credits; // double**
 } Grade;
 
-// Structure Definition Student
+// class Definition Student
 typedef struct Student {
     size_t ID;
     char* name;
@@ -27,7 +27,7 @@ typedef struct Student {
     Grade myGrade;
 } Student;
 
-// function definition
+// constructors
 Student* newStudentDefalut( size_t, char*, char*, char* );
 Student* newStudent( size_t, char*, char*, char*, ArrayListGeneric*, ArrayListGeneric*, ArrayListGeneric* );
 
