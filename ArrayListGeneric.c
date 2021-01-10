@@ -327,8 +327,9 @@ void myQuickSortGeneric(  ArrayListGeneric* aArrayListGeneric, int start,
 
 int partitionGeneric( ArrayListGeneric* aArrayListGeneric, int start,
                       int ending, int (*compareToGeneric)(void*, void*) ) {
-    time_t t;
-    srand( (unsigned) time( &t ) ); // set random seed
+    // set random seed
+    srand( (unsigned) time( &t ) ); 
+    // get random integers from start to ending
     int pivotIndex = start + ( rand() % ( ending - start + 1 ) );
     void* pivot = aArrayListGeneric->data[ pivotIndex ];
     // put the pivot at the front of the list
