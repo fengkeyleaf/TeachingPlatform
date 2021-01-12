@@ -366,7 +366,7 @@ void toStringGeneric( ArrayListGeneric* aArrayListGeneric, void (*toStringInstan
     printf("[ ");
     for ( int i = 0; i < aArrayListGeneric->index; i++ )
         toStringInstance( aArrayListGeneric->data[i] );
-    printf("] | size: %d\n", aArrayListGeneric->index );
+    printf("] | size: %ul\n", aArrayListGeneric->index );
 }
 
 
