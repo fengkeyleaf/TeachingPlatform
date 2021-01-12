@@ -1,3 +1,7 @@
+/*
+ * @author: Xiaoyu Tongyang or you can call me sora for short
+ */
+
 #include "Integer.h"
 
 // constructors

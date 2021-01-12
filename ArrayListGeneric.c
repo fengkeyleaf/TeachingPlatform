@@ -1,3 +1,7 @@
+/*
+ * @author: Xiaoyu Tongyang or you can call me sora for short
+ */
+
 #include "ArrayListGeneric.h"
 
 // constructors
@@ -327,8 +331,9 @@ void myQuickSortGeneric(  ArrayListGeneric* aArrayListGeneric, int start,
 
 int partitionGeneric( ArrayListGeneric* aArrayListGeneric, int start,
                       int ending, int (*compareToGeneric)(void*, void*) ) {
+    time_t t;
     // set random seed
-    srand( (unsigned) time( &t ) ); 
+    srand( (unsigned) time( &t ) );
     // get random integers from start to ending
     int pivotIndex = start + ( rand() % ( ending - start + 1 ) );
     void* pivot = aArrayListGeneric->data[ pivotIndex ];

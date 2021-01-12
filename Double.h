@@ -1,6 +1,10 @@
 #ifndef DOUBLE_H_INCLUDED
 #define DOUBLE_H_INCLUDED
 
+/*
+ * @author: Xiaoyu Tongyang or you can call me sora for short
+ */
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
