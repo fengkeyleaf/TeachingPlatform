@@ -84,15 +84,12 @@ void toStringStudent( Student* aStudent ) {
  */
 
 int compareToStudent(Student* aStudent1 , Student* aStudent2) {
-    // determining if two doubles are equal is special
-    if (  fabs( aStudent1->weightedGPA - aStudent2->weightedGPA ) <= EPSILON )
-        return 0;
-    // Student1 < aStduent2
-    else if ( aStudent1->weightedGPA - aStudent2->weightedGPA < 0 )
-        return -1;
-
-    // Student1 > aStduent2
-    return 1;
+    Double* GPA1 = newDoulbe( aStudent1->weightedGPA );
+    Double* GPA2 = newDoulbe( aStudent2->weightedGPA );
+    int result = compareToDouble( GPA1, GPA2 );
+    free( GPA1 );
+    free( GPA2 );
+    return result;
 }
 
 

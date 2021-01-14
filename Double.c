@@ -52,11 +52,14 @@ Double* divisionDouble( Double* num1, Double* num2 ) {
  */
 
 int compareToDouble(Double* aDouble1 , Double* aDouble2) {
+    // determining if two doubles are equal is special
     if ( fabs( aDouble1->num - aDouble2->num ) <= EPSILON )
         return 0;
+    // aDouble1 < aDouble2
     else if ( aDouble1->num - aDouble2->num < 0.0 )
         return -1;
 
+    // aDouble1 > aDouble2
     return 1;
 }
 
