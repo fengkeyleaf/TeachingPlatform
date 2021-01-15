@@ -83,7 +83,7 @@ void toStringStudent( Student* aStudent ) {
  *
  */
 
-int compareToStudent(Student* aStudent1 , Student* aStudent2) {
+int compareToStudent( Student* aStudent1 , Student* aStudent2 ) {
     Double* GPA1 = newDoulbe( aStudent1->weightedGPA );
     Double* GPA2 = newDoulbe( aStudent2->weightedGPA );
     int result = compareToDouble( GPA1, GPA2 );
